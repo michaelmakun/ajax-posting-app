@@ -4,6 +4,10 @@
     <span id="post-thumbsup-<%= post.id %>" class="label label-success"><%= post.likes.count %> 👍</span>
     <%= post.content %>
 
+    <div id="post-fav-<%= post.id %>" class="text-left">
+      <%= render :partial => "favorite", :locals => { :post => post } %>
+    </div>
+
     <div class="text-right">
       <span id="post-like-<%= post.id %>">
         <%= render :partial => "like", :locals => { :post => post } %>

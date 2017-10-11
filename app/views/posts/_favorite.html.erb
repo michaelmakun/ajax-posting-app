@@ -1,0 +1,11 @@
+<% if current_user %>
+  <% if !current_user.fav_post?(post) %>
+    <%= link_to(content_tag(:i, "", class: "fa fa-heart fa-lg"), fav_post_path(post), :method => :post, :remote => true ) %>
+  <% else %>
+    <%= link_to(content_tag(:i, "", class: "fa fa-heart fa-lg", style: "color: red"), unfav_post_path(post), :method => :post, :remote => true )%>
+  <% end %>
+<% end %>
+
+<% if post.favorited_users.any? %>
+  <%= post.favorited_users.map{ |u| u.display_name }.join(",") %> 收藏了
+<% end %>
