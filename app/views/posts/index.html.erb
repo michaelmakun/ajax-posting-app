@@ -17,6 +17,7 @@
   $("#post-list").on('click', ".delete-post", function(evt){
     evt.preventDefault();
     var url = $(this).attr("href");
+    var that = this;
 
     // 送出 Ajax
     $.ajax({
@@ -24,7 +25,7 @@
       method: 'DELETE',
          dataType: 'json', // 要求服务器回传 json
          success: function(data){   // data 就是服务器回传的 JSON 资料
-           $("#post-" + data["id"]).remove();
+           $(that).closest(".panel").remove();
          }
     })
   })
@@ -51,6 +52,7 @@
 
   $("#post-list").on('change', ".toggle-flag", function(){
     var url = $(this).data("url");
+    var that = this;
 
     $.ajax({
       url: url,
@@ -58,11 +60,26 @@
       dataType: "json",
       success: function(data){
         if ( data["flag_at"] ) {
-          $("#post-flag-" + data["id"]).html(data["flag_at"]);
+          $(that).closest("label").find("span").html(data["flag_at"]);
         } else {
-          $("#post-flag-" + data["id"]).html("");
+          $(that).closest("label").find("span").html("");
         }
       }
     });
   });
+
+  $("#post-list").on('change', ".select_category", function(){
+     var url = $(this).data("url");
+
+     $.ajax({
+       url: url,
+       method: "PATCH",
+       dataType: "json",
+       data: {
+         post: {
+           category_id: $(this).val()
+         }
+       }
+     });
+   });
 </script>
