@@ -30,4 +30,8 @@ class User < ApplicationRecord
     favorited_posts.delete(post)
   end
 
+  def is_admin?
+    role == "admin"
+  end
+
 end

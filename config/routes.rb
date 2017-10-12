@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post "unlike" => "posts#unlike"
       post "fav" => "posts#fav"
       post "unfav" => "posts#unfav"
+      post "toggle_flag" => "posts#toggle_flag"
     end
   end
   root "posts#index"
