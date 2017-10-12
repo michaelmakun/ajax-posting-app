@@ -9,6 +9,16 @@ class Post < ApplicationRecord
   has_many :favorites, :dependent => :destroy
   has_many :favorited_users, :through => :favorites, :source => :user
 
+  has_many :scores, :class_name => "PostScore"
+
+  def find_score(user)
+    user && self.scores.where( :user_id => user.id).first
+  end
+
+  def average_score
+    self.scores.average(:score)
+  end
+
   def find_like(user)
     self.likes.where( :user_id => user.id ).first
   end
